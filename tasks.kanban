@@ -1,0 +1,241 @@
+{
+  "lists": [
+    {
+      "id": "62eae569-b630-4c4e-a899-646b6753d00f",
+      "title": "Backlog",
+      "cards": [
+        {
+          "id": "0090b106-9798-4f04-88b0-30908013456a",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Core Go] CARD-06: Inicialização do Módulo Go e Estrutura de Pacotes Idiomática",
+          "description": "### Objetivo\nIniciar o módulo `photos-organizer` em Go e definir o layout de pacotes do projeto seguindo as boas práticas da comunidade Go.\n\n### Conceitos de Go\n- Comandos `go mod init` e `go mod tidy`\n- Separação em `cmd/organizer/main.go` e pacotes em `internal/`\n- Visibilidade de identificadores em Go (maiúsculas = público, minúsculas = privado)\n- Flags de CLI com a biblioteca padrão `flag` (`--source`, `--dest`, `--dry-run`, `--mode`)\n\n### Critérios de Aceitação\n- [ ] Arquivo `go.mod` inicializado\n- [ ] Estrutura de pastas `cmd/` e `internal/` criada\n- [ ] Executável básico compilando com `go build ./cmd/organizer`\n- [ ] `--help` exibindo flags disponíveis\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
+          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Core Go] CARD-08: Scanner Recursivo de Imagens com Filtro de Extensões (RF02.1, RF02.2)",
+          "description": "### Objetivo\nImplementar a varredura recursiva de diretórios filtrando apenas as imagens suportadas (.jpg, .jpeg, .png, .heic, .webp, .dng).\n\n### Conceitos de Go\n- Uso de `filepath.WalkDir` e interface `fs.DirEntry`\n- Pacote `strings` (`ToLower`) e `filepath.Ext`\n- Manipulação de `slices` e passagem de ponteiros/valores\n\n### Critérios de Aceitação\n- [ ] Função `ScanDirectory(root string) ([]string, error)` implementada em `internal/scanner`\n- [ ] Filtro case-insensitive para extensões especificadas no RF02.2\n- [ ] Teste unitário com diretório temporário (`t.TempDir()`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
+          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "7360e8bb-b659-4eb4-99ae-9b397656f0b5",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Core Go] CARD-10: Worker Pool Concorrente para Varredura e Hashing (RNF04)",
+          "description": "### Objetivo\nProcessar o hashing e a leitura inicial de múltiplos arquivos concorrentemente, controlando o consumo de CPU e I/O de disco.\n\n### Conceitos de Go\n- Concorrência com `go func()` (goroutines)\n- Canais (`chan`) unidirecionais e bidirecionais com buffer\n- Sincronização com `sync.WaitGroup`\n- Cancelamento gracioso com `context.Context` e `context.WithCancel`\n\n### Critérios de Aceitação\n- [ ] Pipeline concorrente produtor-consumidor (Scanner envia caminhos -> Pool calcula hashes)\n- [ ] Quantidade configurável de workers (padrão: `runtime.NumCPU()`)\n- [ ] Respeito imediato ao cancelamento de contexto\n- [ ] Teste de benchmark e teste de cancelamento\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "a0c2092e-62ec-4153-822d-fda27de74b68",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Database] CARD-11: Driver SQLite Pure Go e Migração de Esquema (RF05.1, RF05.2)",
+          "description": "### Objetivo\nConfigurar o banco de dados SQLite local embutido sem dependência de CGO (`modernc.org/sqlite`) e criar o esquema de tabelas.\n\n### Conceitos de Go\n- Pacote padrão `database/sql` e registro de driver SQLite\n- Conexões e pool com `sql.DB` (`SetMaxOpenConns`)\n- Execução de scripts DDL com transações (`db.BeginTx`)\n\n### Critérios de Aceitação\n- [ ] Tabelas `files`, `exif_metadata` e `tags` criadas automaticamente no boot\n- [ ] Arquivo `photo_organizer_index.db` gravado no local especificado\n- [ ] Migrações idempotentes (`CREATE TABLE IF NOT EXISTS`)\n- [ ] Testes unitários com banco em memória (`:memory:`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "0857ab6f-abf5-4b7c-baf8-c34cd8fd6daf",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Database] CARD-12: Repositório de Arquivos e Lógica de Idempotência/Retomada (RF05.3)",
+          "description": "### Objetivo\nImplementar o padrão repositório para persistência de arquivos e garantir retomada transparente de execuções interrompidas.\n\n### Conceitos de Go\n- Padrão Repository e interfaces Go (`type FileRepository interface`)\n- Queries parametrizadas (`db.QueryRow`, `db.Exec`) prevenindo SQL injection\n- Mapeamento de `sql.Rows` para structs de domínio\n\n### Critérios de Aceitação\n- [ ] Métodos CRUD para `FileItem`\n- [ ] Verificação de hash existente: arquivos já com status `Classified` são preservados e pulam SigLIP/EXIF\n- [ ] Testes unitários cobrindo cenários de inserção, atualização e deduplicação\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "c1c0d4df-0cd5-4fb1-9078-cdc292e2ddd9",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[EXIF] CARD-13: Leitor de Metadados EXIF em Go (RF03.1)",
+          "description": "### Objetivo\nExtrair metadados técnicos dos arquivos suportados: DateTimeOriginal, OffsetTime, Fabricante, Modelo da Câmera, Latitude e Longitude GPS.\n\n### Conceitos de Go\n- Uso de biblioteca de parsing EXIF em Go (ex: `github.com/dsoprea/go-exif/v3` ou `github.com/rwcarlsen/goexif/exif`)\n- Tratamento de campos opcionais / nulos em Go (`sql.NullString`, ponteiros ou tipos de valor)\n- Conversão de coordenadas GPS decimais\n\n### Critérios de Aceitação\n- [ ] Extração de tags EXIF essenciais especificadas no RF03.1\n- [ ] Armazenamento dos dados extraídos na struct `ExifData`\n- [ ] Teste unitário com imagens de amostra com cabeçalhos EXIF\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "ffe500bd-d859-4045-a6db-790fca5e364e",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[EXIF] CARD-14: Sistema de Fallback de Data (Regex no Nome + ModTime) (RF03.2)",
+          "description": "### Objetivo\nGarantir que toda foto receba uma data válida através do mecanismo em cascata estrito: 1. EXIF -> 2. Regex no nome do arquivo -> 3. ModTime do sistema de arquivos.\n\n### Conceitos de Go\n- Expressões regulares com pacote `regexp` e compilação com `regexp.MustCompile`\n- Manipulação de datas com `time.Time`, `time.Parse` e layout de formatação único de Go (`2006-01-02 15:04:05`)\n- Extração de `os.FileInfo.ModTime()`\n\n### Critérios de Aceitação\n- [ ] Regex suportando padrões WhatsApp (`WhatsApp Image 2024-05-12...`), Google Pixel (`PXL_20240512...`) e genéricos (`IMG_20240512_143000...`)\n- [ ] Fallback para `ModTime` caso regex falhe\n- [ ] Testes de tabela (Table-driven tests) com dezenas de formatos de nomes de arquivo\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "d708af27-62ea-4a0a-b1b9-729dce7b830e",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Sidecar] CARD-15: Supervisor Go para Ciclo de Vida do Sidecar (RNF05)",
+          "description": "### Objetivo\nFazer com que a aplicação Go atue como supervisora do processo Python: inicializar o script, aguardar o healthcheck e encerrá-lo com segurança no shutdown.\n\n### Conceitos de Go\n- Gerenciamento de subprocessos com `os/exec.CommandContext`\n- Captura de streams de saída (`StdoutPipe`, `StderrPipe`)\n- Polling com `time.Ticker` e timeout para o endpoint `/health`\n- Interceptação de sinais do SO (`os.Interrupt`, `syscall.SIGTERM`) via `signal.Notify`\n\n### Critérios de Aceitação\n- [ ] Go inicia o executável Python do `.venv` apontando para o sidecar\n- [ ] Polling aguarda `/health` responder `ready` antes de liberar a execução\n- [ ] Encerramento seguro do processo filho ao fechar a aplicação Go (sem processos zumbis no Windows)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "9b400b9e-8c21-4832-a9f4-fcf7b9b7877f",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[HTTP] CARD-16: Cliente HTTP em Go e Regras de Threshold (RF04.4, RNF04)",
+          "description": "### Objetivo\nConsumir o sidecar Python a partir do Go, mapear as tags retornadas e aplicar os limiares de decisão de classificação.\n\n### Conceitos de Go\n- Criação de cliente HTTP customizado com `http.Client` e timeout configurado\n- Codificação e decodificação JSON com `encoding/json`\n- Lógica de decisão: Prioridade 1 (Utilitário score >= 0.60) e Prioridade 2 (Geral score >= 0.35)\n- Worker pool Go para realizar inferências de lote sem sobrecarregar a fila HTTP\n\n### Critérios de Aceitação\n- [ ] Cliente HTTP comunicando com `/classify`\n- [ ] Tags filtradas persistidas na tabela `tags` associadas ao hash da foto\n- [ ] Flag de utilitário ativada corretamente de acordo com o limiar\n- [ ] Testes unitários com servidor HTTP mock (`httptest.Server`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "47bf59d8-b286-4134-8202-19e6c419c3fe",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Organizer] CARD-17: Algoritmo de Agrupamento Lógico e Desvio de Utilitários (RF06.1, RF06.2, RF06.4)",
+          "description": "### Objetivo\nCalcular a árvore de diretórios de destino baseada no formato cronológico MM-AAAA e rotear documentos/screenshots para pastas dedicadas.\n\n### Conceitos de Go\n- Manipulação de caminhos com `filepath.Join`\n- Formatação de data em Go (`t.Format(\"01-2006\")`)\n- Regras de roteamento: `Documentos/Comprovantes/{MM-AAAA}/`, `Screenshots/{MM-AAAA}/`, etc.\n- Destino padrão `MM-AAAA/Geral/` ou `MM-AAAA/`\n\n### Critérios de Aceitação\n- [ ] Função pura `ResolveDestinationPath(item domain.FileItem) string`\n- [ ] Testes de tabela validando todos os desvios de utilitários\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "0a2e4706-3384-4a95-a04d-17368a5d611a",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Organizer] CARD-18: Clustering Temático por Proximidade Temporal e Tags (RF06.3)",
+          "description": "### Objetivo\nDetectar adensamento de fotos tiradas em datas próximas com tags de Eventos ou Ambientes semelhantes e agrupá-las em subdiretórios temáticos `MM-AAAA/{Tema}/`.\n\n### Conceitos de Go\n- Ordenação de slices com `sort.Slice` ou `slices.SortFunc`\n- Algoritmo de agrupamento por janela deslizante de tempo (ex: fotos na mesma semana com >= 3 ocorrências da mesma tag)\n- Estruturas de dados em memória (`map[string][]FileItem`)\n\n### Critérios de Aceitação\n- [ ] Algoritmo de clustering implementado\n- [ ] Fotos isoladas permanecem na pasta geral\n- [ ] Testes unitários cobrindo agrupamento de viagens (`beach_ocean`), festas (`birthday_party`), etc.\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "fce8baf4-9d05-4a15-baa2-92c9882c61e3",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Organizer] CARD-19: Executor de Operações de Disco, Conflitos e Dry-Run (RF07.1, RF07.2)",
+          "description": "### Objetivo\nExecutar a cópia ou movimentação física dos arquivos no disco, suportando modo Dry-Run (simulação) e resolução inteligente de colisões.\n\n### Conceitos de Go\n- Operações de sistema de arquivos com `os.MkdirAll`, `os.Rename`, `io.Copy`\n- Verificação de colisão e cálculo de hash no destino\n- Resolução: se hashes iguais -> ignora (duplicado); se hashes diferentes -> adiciona sufixo numérico `_1`, `_2`\n- Modo Dry-Run sem alterações em disco\n\n### Critérios de Aceitação\n- [ ] Suporte a modo Copiar e Mover (RF01.2)\n- [ ] Modo Dry-Run apenas calcula e exibe caminhos sem tocar no disco (RF07.1)\n- [ ] Resolução de colisão funcionando com deduplicação e renomeação incremental (RF07.2)\n- [ ] Testes unitários com sistema de arquivos real temporário\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "3db2a4c7-c0b8-4bfe-8b52-fdd3a46d8573",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Web UI] CARD-20: Servidor HTTP Go com Porta Dinâmica e Abertura de Navegador (RNF01)",
+          "description": "### Objetivo\nCriar o servidor web interno em Go capaz de encontrar portas livres a partir da 8080 e abrir automaticamente a interface no navegador padrão do Windows.\n\n### Conceitos de Go\n- Uso de `net.Listen(\"tcp\", addr)` com fallback dinâmico\n- Inicialização de servidor com `http.Server`\n- Execução de comando do SO para abrir navegador no Windows (`rundll32 url.dll,FileProtocolHandler ...`)\n\n### Critérios de Aceitação\n- [ ] Servidor tenta porta 8080; se ocupada, avança para 8081, 8082, etc.\n- [ ] URL correta é aberta no navegador padrão ao iniciar\n- [ ] Graceful shutdown do servidor HTTP com `server.Shutdown(ctx)`\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "eabfb740-efef-4f6d-a29c-8ce54cece3c1",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Web UI] CARD-21: Hub de Server-Sent Events (SSE) e Rotas REST (RNF03)",
+          "description": "### Objetivo\nEstabelecer o canal de transmissão em tempo real (SSE) para enviar progresso, logs e status para a interface sem recarregar a página.\n\n### Conceitos de Go\n- Streaming HTTP com `http.ResponseWriter` e interface `http.Flusher`\n- Broadcast com channels Go para múltiplos clientes conectados\n- Headers SSE: `Content-Type: text/event-stream`, `Cache-Control: no-cache`\n- Rotas REST para Iniciar, Pausar, Configurar diretórios\n\n### Critérios de Aceitação\n- [ ] Endpoint `/api/events` enviando eventos em tempo real\n- [ ] Endpoints `/api/start`, `/api/pause`, `/api/config`, `/api/files`\n- [ ] Teste unitário simulando cliente SSE\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "55fdb598-d432-40db-af5c-2cc0bd2efc27",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Web UI] CARD-22: Frontend Dashboard Embutido via go:embed (RF01, RNF02)",
+          "description": "### Objetivo\nDesenvolver uma Web UI moderna, responsiva e embutida diretamente no executável Go através da diretiva go:embed.\n\n### Conceitos de Go\n- Pacote `embed` (`//go:embed web/*`) e `http.FS`\n- Servindo ativos estáticos (HTML, CSS, JS, ícones) sem dependências externas (Zero-Dependency RNF02)\n\n### Requisitos de Interface (RF01)\n- Formulário com Diretório de Origem (pré-preenchido com `os.Getwd()`), Destino e Modo (Copiar/Mover)\n- Controles: Iniciar, Pausar e Alternar Dry-Run\n- Tabela de categorias/tags da IA (RF01.3)\n- Tabela reativa de arquivos processados com paginação/busca (RF01.4)\n- Barra de progresso e estatísticas em tempo real (RF01.6)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "3bed23a2-c789-430a-a601-713c0cf0b3c8",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Testing] CARD-23: Testes de Integração End-to-End do Pipeline Completo",
+          "description": "### Objetivo\nValidar o fluxo completo de ponta a ponta: varredura, hashing, extração de data, classificação SigLIP, organização em diretórios e retomada (resume).\n\n### Critérios de Aceitação\n- [ ] Suite de teste criando pasta de fotos simuladas (fotos com EXIF, fotos sem EXIF com nome formatado, prints, utilitários)\n- [ ] Execução em modo Dry-Run validando integridade dos planos\n- [ ] Execução em modo real validando estrutura física criada no destino\n- [ ] Validação do teste de retomada (segunda execução não reprocessa nada)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+      "title": "To Do",
+      "cards": [
+        {
+          "id": "199c2a1f-fc28-4dc7-9217-33283a4af1a2",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Python/AI] CARD-02: Módulo de Inferência SigLIP e Taxonomia de Categorias (RF04)",
+          "description": "### Objetivo\nConstruir o módulo Python responsável por carregar o modelo SigLIP, pré-computar os embeddings de texto para as 26 categorias da taxonomia oficial e fornecer função de inferência sobre imagens.\n\n### Critérios de Aceitação\n- [ ] Implementar carregamento do modelo `google/siglip-base-patch16-224` (ou versão ONNX compatível)\n- [ ] Pré-computar os text embeddings dos 26 prompts durante o boot (RF04.2)\n- [ ] Suporte a aceleração DirectML com fallback transparente para CPU (RNF05.4)\n- [ ] Função `classify_image(image_path: str) -> dict[str, float]` retornando scores sigmoid (0 a 1) para cada tag\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "17477c79-0291-4174-9d79-e3a8ba4d2aaa",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Python/AI] CARD-03: Interface CLI do Sidecar para Testes Manuais",
+          "description": "### Objetivo\nPermitir que o classificador seja executado diretamente pelo terminal para inspeção rápida de imagens reais antes da integração com o Go.\n\n### Critérios de Aceitação\n- [ ] Implementar entrada CLI (ex: `python -m sidecar classify caminho/foto.jpg`)\n- [ ] Exibir tabela formatada no terminal com as tags detectadas e respectivos scores\n- [ ] Destacar tags com score >= 0.60 (Utilitários) e >= 0.35 (Gerais)\n- [ ] Suporte a argumento opcional para classificar uma pasta inteira e imprimir sumário\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "bfbf9dbb-410f-4c6b-b0e9-82e6c3a7e594",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Python/AI] CARD-04: Servidor FastAPI para Modo Sidecar (/health e /classify)",
+          "description": "### Objetivo\nExpor o serviço de classificação visual via HTTP REST com FastAPI para comunicação local com o processo supervisor em Go.\n\n### Critérios de Aceitação\n- [ ] Endpoint `GET /health` retornando status de prontidão (`{\"status\": \"ready\", \"device\": \"directml\"|\"cpu\"}`)\n- [ ] Endpoint `POST /classify` aceitando JSON com `{\"path\": \"...\"}` ou upload de arquivo\n- [ ] Resposta estruturada com mapa de tags e scores sigmoid\n- [ ] Suporte a parâmetro `--port` (padrão: 8000) e `--host 127.0.0.1`\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "f4ec595d-30ae-4d89-a15d-685bd075d2bc",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Python/AI] CARD-05: Testes Automatizados do Sidecar com Pytest",
+          "description": "### Objetivo\nGarantir a confiabilidade da classificação e dos endpoints HTTP através de testes unitários e de integração.\n\n### Critérios de Aceitação\n- [ ] Teste unitário para a taxonomia (verificar que todas as 26 classes e prompts estão definidos)\n- [ ] Teste do endpoint `/health` usando `TestClient` do FastAPI\n- [ ] Teste de inferência em imagens sintéticas de teste (ex: imagem sólida ou gradiente gerado com Pillow)\n- [ ] Validação de formato da resposta JSON e limiares numéricos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+      "title": "Doing",
+      "cards": [
+        {
+          "id": "39f77ea0-4c6a-42be-a33b-5b65ea1bb7fa",
+          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+          "title": "[Python/AI] CARD-01: Configuração do Ambiente Virtual Python (.venv) e Dependências",
+          "description": "### Objetivo\nCriar e configurar o ambiente virtual `.venv` para o sidecar Python com todas as bibliotecas necessárias para inferência e API.\n\n### Critérios de Aceitação\n- [ ] Criar ambiente virtual em `.venv` com Python 3.10\n- [ ] Criar `sidecar/requirements.txt` com:\n  - `fastapi` e `uvicorn[standard]`\n  - `torch` ou `onnxruntime-directml` (com suporte a AMD DirectML / fallback CPU)\n  - `transformers`\n  - `pillow`\n  - `pytest` e `httpx` (para testes de API)\n- [ ] Validar importação e disponibilidade de DirectML/CPU em script rápido de diagnóstico\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+      "title": "Done",
+      "cards": []
+    }
+  ],
+  "archive": {
+    "lists": [],
+    "cards": []
+  },
+  "settings": {
+    "labels": []
+  }
+}
