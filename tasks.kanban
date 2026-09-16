@@ -5,60 +5,6 @@
       "title": "Backlog",
       "cards": [
         {
-          "id": "0090b106-9798-4f04-88b0-30908013456a",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Core Go] CARD-06: Inicialização do Módulo Go e Estrutura de Pacotes Idiomática",
-          "description": "### Objetivo\nIniciar o módulo `photos-organizer` em Go e definir o layout de pacotes do projeto seguindo as boas práticas da comunidade Go.\n\n### Conceitos de Go\n- Comandos `go mod init` e `go mod tidy`\n- Separação em `cmd/organizer/main.go` e pacotes em `internal/`\n- Visibilidade de identificadores em Go (maiúsculas = público, minúsculas = privado)\n- Flags de CLI com a biblioteca padrão `flag` (`--source`, `--dest`, `--dry-run`, `--mode`)\n\n### Critérios de Aceitação\n- [ ] Arquivo `go.mod` inicializado\n- [ ] Estrutura de pastas `cmd/` e `internal/` criada\n- [ ] Executável básico compilando com `go build ./cmd/organizer`\n- [ ] `--help` exibindo flags disponíveis\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
-          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Core Go] CARD-08: Scanner Recursivo de Imagens com Filtro de Extensões (RF02.1, RF02.2)",
-          "description": "### Objetivo\nImplementar a varredura recursiva de diretórios filtrando apenas as imagens suportadas (.jpg, .jpeg, .png, .heic, .webp, .dng).\n\n### Conceitos de Go\n- Uso de `filepath.WalkDir` e interface `fs.DirEntry`\n- Pacote `strings` (`ToLower`) e `filepath.Ext`\n- Manipulação de `slices` e passagem de ponteiros/valores\n\n### Critérios de Aceitação\n- [ ] Função `ScanDirectory(root string) ([]string, error)` implementada em `internal/scanner`\n- [ ] Filtro case-insensitive para extensões especificadas no RF02.2\n- [ ] Teste unitário com diretório temporário (`t.TempDir()`)\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
-          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "7360e8bb-b659-4eb4-99ae-9b397656f0b5",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Core Go] CARD-10: Worker Pool Concorrente para Varredura e Hashing (RNF04)",
-          "description": "### Objetivo\nProcessar o hashing e a leitura inicial de múltiplos arquivos concorrentemente, controlando o consumo de CPU e I/O de disco.\n\n### Conceitos de Go\n- Concorrência com `go func()` (goroutines)\n- Canais (`chan`) unidirecionais e bidirecionais com buffer\n- Sincronização com `sync.WaitGroup`\n- Cancelamento gracioso com `context.Context` e `context.WithCancel`\n\n### Critérios de Aceitação\n- [ ] Pipeline concorrente produtor-consumidor (Scanner envia caminhos -> Pool calcula hashes)\n- [ ] Quantidade configurável de workers (padrão: `runtime.NumCPU()`)\n- [ ] Respeito imediato ao cancelamento de contexto\n- [ ] Teste de benchmark e teste de cancelamento\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "a0c2092e-62ec-4153-822d-fda27de74b68",
-          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Database] CARD-11: Driver SQLite Pure Go e Migração de Esquema (RF05.1, RF05.2)",
-          "description": "### Objetivo\nConfigurar o banco de dados SQLite local embutido sem dependência de CGO (`modernc.org/sqlite`) e criar o esquema de tabelas.\n\n### Conceitos de Go\n- Pacote padrão `database/sql` e registro de driver SQLite\n- Conexões e pool com `sql.DB` (`SetMaxOpenConns`)\n- Execução de scripts DDL com transações (`db.BeginTx`)\n\n### Critérios de Aceitação\n- [ ] Tabelas `files`, `exif_metadata` e `tags` criadas automaticamente no boot\n- [ ] Arquivo `photo_organizer_index.db` gravado no local especificado\n- [ ] Migrações idempotentes (`CREATE TABLE IF NOT EXISTS`)\n- [ ] Testes unitários com banco em memória (`:memory:`)\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
           "id": "0857ab6f-abf5-4b7c-baf8-c34cd8fd6daf",
           "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
           "title": "[Database] CARD-12: Repositório de Arquivos e Lógica de Idempotência/Retomada (RF05.3)",
@@ -180,7 +126,53 @@
     {
       "id": "30436d4f-af10-4b17-a64b-fe0633d8869f",
       "title": "To Do",
-      "cards": []
+      "cards": [
+        {
+          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
+          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Core Go] CARD-08: Scanner Recursivo de Imagens com Filtro de Extensões (RF02.1, RF02.2)",
+          "description": "### Objetivo\nImplementar a varredura recursiva de diretórios filtrando apenas as imagens suportadas (.jpg, .jpeg, .png, .heic, .webp, .dng).\n\n### Conceitos de Go\n- Uso de `filepath.WalkDir` e interface `fs.DirEntry`\n- Pacote `strings` (`ToLower`) e `filepath.Ext`\n- Manipulação de `slices` e passagem de ponteiros/valores\n\n### Critérios de Aceitação\n- [ ] Função `ScanDirectory(root string) ([]string, error)` implementada em `internal/scanner`\n- [ ] Filtro case-insensitive para extensões especificadas no RF02.2\n- [ ] Teste unitário com diretório temporário (`t.TempDir()`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
+          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "7360e8bb-b659-4eb4-99ae-9b397656f0b5",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Core Go] CARD-10: Worker Pool Concorrente para Varredura e Hashing (RNF04)",
+          "description": "### Objetivo\nProcessar o hashing e a leitura inicial de múltiplos arquivos concorrentemente, controlando o consumo de CPU e I/O de disco.\n\n### Conceitos de Go\n- Concorrência com `go func()` (goroutines)\n- Canais (`chan`) unidirecionais e bidirecionais com buffer\n- Sincronização com `sync.WaitGroup`\n- Cancelamento gracioso com `context.Context` e `context.WithCancel`\n\n### Critérios de Aceitação\n- [ ] Pipeline concorrente produtor-consumidor (Scanner envia caminhos -> Pool calcula hashes)\n- [ ] Quantidade configurável de workers (padrão: `runtime.NumCPU()`)\n- [ ] Respeito imediato ao cancelamento de contexto\n- [ ] Teste de benchmark e teste de cancelamento\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "a0c2092e-62ec-4153-822d-fda27de74b68",
+          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "title": "[Database] CARD-11: Driver SQLite Pure Go e Migração de Esquema (RF05.1, RF05.2)",
+          "description": "### Objetivo\nConfigurar o banco de dados SQLite local embutido sem dependência de CGO (`modernc.org/sqlite`) e criar o esquema de tabelas.\n\n### Conceitos de Go\n- Pacote padrão `database/sql` e registro de driver SQLite\n- Conexões e pool com `sql.DB` (`SetMaxOpenConns`)\n- Execução de scripts DDL com transações (`db.BeginTx`)\n\n### Critérios de Aceitação\n- [ ] Tabelas `files`, `exif_metadata` e `tags` criadas automaticamente no boot\n- [ ] Arquivo `photo_organizer_index.db` gravado no local especificado\n- [ ] Migrações idempotentes (`CREATE TABLE IF NOT EXISTS`)\n- [ ] Testes unitários com banco em memória (`:memory:`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     },
     {
       "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
@@ -191,6 +183,15 @@
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
       "title": "Done",
       "cards": [
+        {
+          "id": "0090b106-9798-4f04-88b0-30908013456a",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Core Go] CARD-06: Inicialização do Módulo Go e Estrutura de Pacotes Idiomática",
+          "description": "### Objetivo\nIniciar o módulo `photos-organizer` em Go e definir o layout de pacotes do projeto seguindo as boas práticas da comunidade Go.\n\n### Conceitos de Go\n- Comandos `go mod init` e `go mod tidy`\n- Separação em `cmd/organizer/main.go` e pacotes em `internal/`\n- Visibilidade de identificadores em Go (maiúsculas = público, minúsculas = privado)\n- Flags de CLI com a biblioteca padrão `flag` (`--source`, `--dest`, `--dry-run`, `--mode`)\n\n### Critérios de Aceitação\n- [ ] Arquivo `go.mod` inicializado\n- [ ] Estrutura de pastas `cmd/` e `internal/` criada\n- [ ] Executável básico compilando com `go build ./cmd/organizer`\n- [ ] `--help` exibindo flags disponíveis\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
         {
           "id": "f4ec595d-30ae-4d89-a15d-685bd075d2bc",
           "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
