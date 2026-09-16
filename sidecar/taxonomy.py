@@ -13,8 +13,8 @@ class Category:
     destination: str
     is_utility: bool = False
 
-UTILITY_THRESHOLD = 0.60
-GENERAL_THRESHOLD = 0.35
+UTILITY_THRESHOLD = 0.20
+GENERAL_THRESHOLD = 0.05
 
 CATEGORIES: List[Category] = [
     # Utilitários / Documentos (Prioridade 1 - Isolamento)

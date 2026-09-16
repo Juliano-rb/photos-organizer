@@ -34,11 +34,11 @@ def test_evaluate_tags_with_utility():
     
     # Simulando scores de saída do SigLIP
     scores = {
-        "receipt_invoice": 0.85,  # Utilitário, acima do UTILITY_THRESHOLD (0.60)
-        "document_text": 0.55,    # Utilitário, abaixo do UTILITY_THRESHOLD
-        "beach_ocean": 0.40,      # Geral, acima do GENERAL_THRESHOLD (0.35)
-        "dog": 0.30,              # Geral, abaixo do GENERAL_THRESHOLD
-        "cat": 0.90               # Geral, acima do GENERAL_THRESHOLD
+        "receipt_invoice": 0.85,  # Utilitário, acima do UTILITY_THRESHOLD (0.20)
+        "document_text": 0.15,    # Utilitário, abaixo do UTILITY_THRESHOLD
+        "beach_ocean": 0.10,      # Geral, acima do GENERAL_THRESHOLD (0.05)
+        "dog": 0.04,              # Geral, abaixo do GENERAL_THRESHOLD
+        "cat": 0.50               # Geral, acima do GENERAL_THRESHOLD
     }
 
     result = classifier.evaluate_tags(scores)
@@ -63,8 +63,8 @@ def test_evaluate_tags_no_utility():
     classifier = SigLIPClassifier()
     
     scores = {
-        "receipt_invoice": 0.55,  # Utilitário, abaixo do limite (não é considerado)
-        "beach_ocean": 0.80,      # Geral, acima do limite
+        "receipt_invoice": 0.15,  # Utilitário, abaixo do limite (não é considerado)
+        "beach_ocean": 0.40,      # Geral, acima do limite
     }
 
     result = classifier.evaluate_tags(scores)
