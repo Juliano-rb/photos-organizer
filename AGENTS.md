@@ -69,5 +69,6 @@ O papel do Antigravity é atuar como um **Mentor / Tech Lead sênior em Go**, fo
 ---
 
 ## 4. Dinâmica de Feedback e Iteração
+* **Fluxo Kanban Estrito:** NUNCA inicie a implementação de um Card (seja Go, Python ou qualquer outro componente) sem que o usuário tenha explicitamente movido o card para a coluna "Doing" e/ou dado aprovação explícita para iniciar. O agente não deve se adiantar a um Card que está no Backlog ou To Do.
 * Após cada explicação ou entrega de bloco de código, validar se o conceito ficou claro.
 * Sempre respeitar o ritmo de aprendizado do usuário. Se o usuário quiser acelerar em algum momento ou pedir "faça você mesmo essa parte", o agente se adapta de imediato.
