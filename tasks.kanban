@@ -165,16 +165,44 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "a1b2c3d4-e5f6-4a1b-8c2d-9e8f7a6b5c4d",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Tech Debt] CARD-24: Refatoração de PyTorch para ONNX Runtime (DirectML)",
+          "description": "### Objetivo\nAnalisar e implementar a migração do motor de inferência SigLIP de PyTorch para ONNX Runtime utilizando o provedor DirectML.\n\n### Benefícios Esperados\n- Redução drástica do tamanho do ambiente virtual (remoção da dependência gigabite do `torch`)\n- Inferência 100% local (sem dependência do HF Hub na inicialização)\n- Suporte oficial e otimizado para placas AMD/Intel/NVIDIA no Windows via DirectX 12\n\n### Tarefas\n- [ ] Criar script com a biblioteca `optimum` para exportar o modelo base para arquivos `.onnx`\n- [ ] Refatorar `sidecar/classifier.py` para carregar o modelo via `onnxruntime`\n- [ ] Substituir operações com tensores matemáticas do PyTorch por funções equivalentes em `numpy` puros\n- [ ] Adaptar testes automatizados existentes\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
         }
       ]
     },
     {
       "id": "30436d4f-af10-4b17-a64b-fe0633d8869f",
       "title": "To Do",
+      "cards": []
+    },
+    {
+      "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+      "title": "Doing",
+      "cards": []
+    },
+    {
+      "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+      "title": "Done",
       "cards": [
         {
+          "id": "f4ec595d-30ae-4d89-a15d-685bd075d2bc",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Python/AI] CARD-05: Testes Automatizados do Sidecar com Pytest",
+          "description": "### Objetivo\nGarantir a confiabilidade da classificação e dos endpoints HTTP através de testes unitários e de integração.\n\n### Critérios de Aceitação\n- [ ] Teste unitário para a taxonomia (verificar que todas as 26 classes e prompts estão definidos)\n- [ ] Teste do endpoint `/health` usando `TestClient` do FastAPI\n- [ ] Teste de inferência em imagens sintéticas de teste (ex: imagem sólida ou gradiente gerado com Pillow)\n- [ ] Validação de formato da resposta JSON e limiares numéricos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
           "id": "bfbf9dbb-410f-4c6b-b0e9-82e6c3a7e594",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
           "title": "[Python/AI] CARD-04: Servidor FastAPI para Modo Sidecar (/health e /classify)",
           "description": "### Objetivo\nExpor o serviço de classificação visual via HTTP REST com FastAPI para comunicação local com o processo supervisor em Go.\n\n### Critérios de Aceitação\n- [ ] Endpoint `GET /health` retornando status de prontidão (`{\"status\": \"ready\", \"device\": \"directml\"|\"cpu\"}`)\n- [ ] Endpoint `POST /classify` aceitando JSON com `{\"path\": \"...\"}` ou upload de arquivo\n- [ ] Resposta estruturada com mapa de tags e scores sigmoid\n- [ ] Suporte a parâmetro `--port` (padrão: 8000) e `--host 127.0.0.1`\n",
           "labels": [],
@@ -182,35 +210,14 @@
           "comments": []
         },
         {
-          "id": "f4ec595d-30ae-4d89-a15d-685bd075d2bc",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Python/AI] CARD-05: Testes Automatizados do Sidecar com Pytest",
-          "description": "### Objetivo\nGarantir a confiabilidade da classificação e dos endpoints HTTP através de testes unitários e de integração.\n\n### Critérios de Aceitação\n- [ ] Teste unitário para a taxonomia (verificar que todas as 26 classes e prompts estão definidos)\n- [ ] Teste do endpoint `/health` usando `TestClient` do FastAPI\n- [ ] Teste de inferência em imagens sintéticas de teste (ex: imagem sólida ou gradiente gerado com Pillow)\n- [ ] Validação de formato da resposta JSON e limiares numéricos\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        }
-      ]
-    },
-    {
-      "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
-      "title": "Doing",
-      "cards": [
-        {
           "id": "17477c79-0291-4174-9d79-e3a8ba4d2aaa",
-          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
           "title": "[Python/AI] CARD-03: Interface CLI do Sidecar para Testes Manuais",
           "description": "### Objetivo\nPermitir que o classificador seja executado diretamente pelo terminal para inspeção rápida de imagens reais antes da integração com o Go.\n\n### Critérios de Aceitação\n- [ ] Implementar entrada CLI (ex: `python -m sidecar classify caminho/foto.jpg`)\n- [ ] Exibir tabela formatada no terminal com as tags detectadas e respectivos scores\n- [ ] Destacar tags com score >= 0.60 (Utilitários) e >= 0.35 (Gerais)\n- [ ] Suporte a argumento opcional para classificar uma pasta inteira e imprimir sumário\n",
           "labels": [],
           "checkboxes": [],
           "comments": []
-        }
-      ]
-    },
-    {
-      "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
-      "title": "Done",
-      "cards": [
+        },
         {
           "id": "199c2a1f-fc28-4dc7-9217-33283a4af1a2",
           "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
