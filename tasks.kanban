@@ -173,24 +173,6 @@
       "title": "To Do",
       "cards": [
         {
-          "id": "199c2a1f-fc28-4dc7-9217-33283a4af1a2",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Python/AI] CARD-02: Módulo de Inferência SigLIP e Taxonomia de Categorias (RF04)",
-          "description": "### Objetivo\nConstruir o módulo Python responsável por carregar o modelo SigLIP, pré-computar os embeddings de texto para as 26 categorias da taxonomia oficial e fornecer função de inferência sobre imagens.\n\n### Critérios de Aceitação\n- [ ] Implementar carregamento do modelo `google/siglip-base-patch16-224` (ou versão ONNX compatível)\n- [ ] Pré-computar os text embeddings dos 26 prompts durante o boot (RF04.2)\n- [ ] Suporte a aceleração DirectML com fallback transparente para CPU (RNF05.4)\n- [ ] Função `classify_image(image_path: str) -> dict[str, float]` retornando scores sigmoid (0 a 1) para cada tag\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "17477c79-0291-4174-9d79-e3a8ba4d2aaa",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Python/AI] CARD-03: Interface CLI do Sidecar para Testes Manuais",
-          "description": "### Objetivo\nPermitir que o classificador seja executado diretamente pelo terminal para inspeção rápida de imagens reais antes da integração com o Go.\n\n### Critérios de Aceitação\n- [ ] Implementar entrada CLI (ex: `python -m sidecar classify caminho/foto.jpg`)\n- [ ] Exibir tabela formatada no terminal com as tags detectadas e respectivos scores\n- [ ] Destacar tags com score >= 0.60 (Utilitários) e >= 0.35 (Gerais)\n- [ ] Suporte a argumento opcional para classificar uma pasta inteira e imprimir sumário\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
           "id": "bfbf9dbb-410f-4c6b-b0e9-82e6c3a7e594",
           "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
           "title": "[Python/AI] CARD-04: Servidor FastAPI para Modo Sidecar (/health e /classify)",
@@ -215,10 +197,10 @@
       "title": "Doing",
       "cards": [
         {
-          "id": "39f77ea0-4c6a-42be-a33b-5b65ea1bb7fa",
+          "id": "17477c79-0291-4174-9d79-e3a8ba4d2aaa",
           "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
-          "title": "[Python/AI] CARD-01: Configuração do Ambiente Virtual Python (.venv) e Dependências",
-          "description": "### Objetivo\nCriar e configurar o ambiente virtual `.venv` para o sidecar Python com todas as bibliotecas necessárias para inferência e API.\n\n### Critérios de Aceitação\n- [ ] Criar ambiente virtual em `.venv` com Python 3.10\n- [ ] Criar `sidecar/requirements.txt` com:\n  - `fastapi` e `uvicorn[standard]`\n  - `torch` ou `onnxruntime-directml` (com suporte a AMD DirectML / fallback CPU)\n  - `transformers`\n  - `pillow`\n  - `pytest` e `httpx` (para testes de API)\n- [ ] Validar importação e disponibilidade de DirectML/CPU em script rápido de diagnóstico\n",
+          "title": "[Python/AI] CARD-03: Interface CLI do Sidecar para Testes Manuais",
+          "description": "### Objetivo\nPermitir que o classificador seja executado diretamente pelo terminal para inspeção rápida de imagens reais antes da integração com o Go.\n\n### Critérios de Aceitação\n- [ ] Implementar entrada CLI (ex: `python -m sidecar classify caminho/foto.jpg`)\n- [ ] Exibir tabela formatada no terminal com as tags detectadas e respectivos scores\n- [ ] Destacar tags com score >= 0.60 (Utilitários) e >= 0.35 (Gerais)\n- [ ] Suporte a argumento opcional para classificar uma pasta inteira e imprimir sumário\n",
           "labels": [],
           "checkboxes": [],
           "comments": []
@@ -228,7 +210,26 @@
     {
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
       "title": "Done",
-      "cards": []
+      "cards": [
+        {
+          "id": "199c2a1f-fc28-4dc7-9217-33283a4af1a2",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Python/AI] CARD-02: Módulo de Inferência SigLIP e Taxonomia de Categorias (RF04)",
+          "description": "### Objetivo\nConstruir o módulo Python responsável por carregar o modelo SigLIP, pré-computar os embeddings de texto para as 26 categorias da taxonomia oficial e fornecer função de inferência sobre imagens.\n\n### Critérios de Aceitação\n- [ ] Implementar carregamento do modelo `google/siglip-base-patch16-224` (ou versão ONNX compatível)\n- [ ] Pré-computar os text embeddings dos 26 prompts durante o boot (RF04.2)\n- [ ] Suporte a aceleração DirectML com fallback transparente para CPU (RNF05.4)\n- [ ] Função `classify_image(image_path: str) -> dict[str, float]` retornando scores sigmoid (0 a 1) para cada tag\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "39f77ea0-4c6a-42be-a33b-5b65ea1bb7fa",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Python/AI] CARD-01: Configuração do Ambiente Virtual Python (.venv) e Dependências",
+          "description": "### Objetivo\nCriar e configurar o ambiente virtual `.venv` para o sidecar Python com todas as bibliotecas necessárias para inferência e API.\n\n### Critérios de Aceitação\n- [ ] Criar ambiente virtual em `.venv` com Python 3.10\n- [ ] Criar `sidecar/requirements.txt` com:\n  - `fastapi` e `uvicorn[standard]`\n  - `torch` ou `onnxruntime-directml` (com suporte a AMD DirectML / fallback CPU)\n  - `transformers`\n  - `pillow`\n  - `pytest` e `httpx` (para testes de API)\n- [ ] Validar importação e disponibilidade de DirectML/CPU em script rápido de diagnóstico\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     }
   ],
   "archive": {
