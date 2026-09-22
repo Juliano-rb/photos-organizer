@@ -35,3 +35,6 @@ Thumbs.db
 !.vscode/extensions.json
 !.vscode/settings.json
 teste.kanban
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
