@@ -52,8 +52,8 @@
         {
           "id": "47bf59d8-b286-4134-8202-19e6c419c3fe",
           "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Organizer] CARD-17: Algoritmo de Agrupamento Lógico e Desvio de Utilitários (RF06.1, RF06.2, RF06.4)",
-          "description": "### Objetivo\nCalcular a árvore de diretórios de destino baseada no formato cronológico MM-AAAA e rotear documentos/screenshots para pastas dedicadas.\n\n### Conceitos de Go\n- Manipulação de caminhos com `filepath.Join`\n- Formatação de data em Go (`t.Format(\"01-2006\")`)\n- Regras de roteamento: `Documentos/Comprovantes/{MM-AAAA}/`, `Screenshots/{MM-AAAA}/`, etc.\n- Destino padrão `MM-AAAA/Geral/` ou `MM-AAAA/`\n\n### Critérios de Aceitação\n- [ ] Função pura `ResolveDestinationPath(item domain.FileItem) string`\n- [ ] Testes de tabela validando todos os desvios de utilitários\n",
+          "title": "[Organizer] CARD-17: Gerador de Plano Dinâmico (RF06)",
+          "description": "### Objetivo\nCalcular a árvore de diretórios baseada na Configuração do Usuário (se utilitários agrupam por mês, e quais tags genéricas ganharam pasta).\n\n### Critérios de Aceitação\n- [ ] Função ResolveDestinationPath(item, config) implementada.\n- [ ] Computação baseada na Fase 2.",
           "labels": [],
           "checkboxes": [],
           "comments": []
@@ -70,8 +70,8 @@
         {
           "id": "fce8baf4-9d05-4a15-baa2-92c9882c61e3",
           "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Organizer] CARD-19: Executor de Operações de Disco, Conflitos e Dry-Run (RF07.1, RF07.2)",
-          "description": "### Objetivo\nExecutar a cópia ou movimentação física dos arquivos no disco, suportando modo Dry-Run (simulação) e resolução inteligente de colisões.\n\n### Conceitos de Go\n- Operações de sistema de arquivos com `os.MkdirAll`, `os.Rename`, `io.Copy`\n- Verificação de colisão e cálculo de hash no destino\n- Resolução: se hashes iguais -> ignora (duplicado); se hashes diferentes -> adiciona sufixo numérico `_1`, `_2`\n- Modo Dry-Run sem alterações em disco\n\n### Critérios de Aceitação\n- [ ] Suporte a modo Copiar e Mover (RF01.2)\n- [ ] Modo Dry-Run apenas calcula e exibe caminhos sem tocar no disco (RF07.1)\n- [ ] Resolução de colisão funcionando com deduplicação e renomeação incremental (RF07.2)\n- [ ] Testes unitários com sistema de arquivos real temporário\n",
+          "title": "[Organizer] CARD-19: Executor de Operações de Disco (Fase 2)",
+          "description": "### Objetivo\nReceber um Plano de Ação e focar apenas em resolver conflitos e copiar/mover arquivos.\n\n### Critérios de Aceitação\n- [ ] Consome lista de Origem->Destino\n- [ ] Modo Dry-Run / Resolução de Conflitos.",
           "labels": [],
           "checkboxes": [],
           "comments": []
@@ -97,8 +97,8 @@
         {
           "id": "55fdb598-d432-40db-af5c-2cc0bd2efc27",
           "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
-          "title": "[Web UI] CARD-22: Frontend Dashboard Embutido via go:embed (RF01, RNF02)",
-          "description": "### Objetivo\nDesenvolver uma Web UI moderna, responsiva e embutida diretamente no executável Go através da diretiva go:embed.\n\n### Conceitos de Go\n- Pacote `embed` (`//go:embed web/*`) e `http.FS`\n- Servindo ativos estáticos (HTML, CSS, JS, ícones) sem dependências externas (Zero-Dependency RNF02)\n\n### Requisitos de Interface (RF01)\n- Formulário com Diretório de Origem (pré-preenchido com `os.Getwd()`), Destino e Modo (Copiar/Mover)\n- Controles: Iniciar, Pausar e Alternar Dry-Run\n- Tabela de categorias/tags da IA (RF01.3)\n- Tabela reativa de arquivos processados com paginação/busca (RF01.4)\n- Barra de progresso e estatísticas em tempo real (RF01.6)\n",
+          "title": "[Web UI] CARD-22: Frontend em Duas Fases (Dashboard e Decisão)",
+          "description": "### Objetivo\nA UI precisa ser dividida. Tela 1 (Configurações base e Iniciar Indexação). Tela 2 (Painel de Decisão com tags agrupadas, toggle de utilitários e botão Confirmar).\n\n### Critérios de Aceitação\n- [ ] Separação Fase 1 e Fase 2.",
           "labels": [],
           "checkboxes": [],
           "comments": []
@@ -120,6 +120,15 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "0130c2dc-ef55-4c85-a55b-209f09c7ff1e",
+          "listId": "62eae569-b630-4c4e-a899-646b6753d00f",
+          "title": "[Web UI] CARD-25: API REST de Sumarização e Aprovação de Plano",
+          "description": "### Objetivo\nCriar endpoints para servir dados agregados da Fase 1 para a Web UI e receber o plano aprovado da Fase 2.\n\n### Critérios de Aceitação\n- [ ] GET /api/summary/tags\n- [ ] POST /api/plan/execute",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
         }
       ]
     },
@@ -127,15 +136,6 @@
       "id": "30436d4f-af10-4b17-a64b-fe0633d8869f",
       "title": "To Do",
       "cards": [
-        {
-          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
-          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
         {
           "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
           "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
@@ -177,7 +177,17 @@
     {
       "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
       "title": "Doing",
-      "cards": []
+      "cards": [
+        {
+          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
+          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
+          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     },
     {
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
