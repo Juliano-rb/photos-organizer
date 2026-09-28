@@ -177,22 +177,21 @@
     {
       "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
       "title": "Doing",
-      "cards": [
-        {
-          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
-          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
-          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
-          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        }
-      ]
+      "cards": []
     },
     {
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
       "title": "Done",
       "cards": [
+        {
+          "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Core Go] CARD-07: Modelos de Domínio e Validações em Go",
+          "description": "### Objetivo\nDefinir as structs que representam as entidades centrais do sistema em Go: `FileItem`, `ExifData`, `TagScore`, `ProcessStatus`, `Config`.\n\n### Conceitos de Go\n- Definição de `struct` e struct embedding\n- Tags de struct (`json:\"...\"`, `db:\"...\"`)\n- Enums idiomáticos em Go com `type Status int` e `iota`\n- Métodos associados a structs (`func (f *FileItem) IsUtility() bool`)\n- Validação de caminhos com `os.Stat`\n\n### Critérios de Aceitação\n- [ ] Structs de domínio criadas em `internal/domain/`\n- [ ] Testes unitários para métodos auxiliares das structs\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
         {
           "id": "0090b106-9798-4f04-88b0-30908013456a",
           "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
