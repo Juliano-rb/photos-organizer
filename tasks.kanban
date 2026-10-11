@@ -137,24 +137,6 @@
       "title": "To Do",
       "cards": [
         {
-          "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Core Go] CARD-08: Scanner Recursivo de Imagens com Filtro de Extensões (RF02.1, RF02.2)",
-          "description": "### Objetivo\nImplementar a varredura recursiva de diretórios filtrando apenas as imagens suportadas (.jpg, .jpeg, .png, .heic, .webp, .dng).\n\n### Conceitos de Go\n- Uso de `filepath.WalkDir` e interface `fs.DirEntry`\n- Pacote `strings` (`ToLower`) e `filepath.Ext`\n- Manipulação de `slices` e passagem de ponteiros/valores\n\n### Critérios de Aceitação\n- [ ] Função `ScanDirectory(root string) ([]string, error)` implementada em `internal/scanner`\n- [ ] Filtro case-insensitive para extensões especificadas no RF02.2\n- [ ] Teste unitário com diretório temporário (`t.TempDir()`)\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
-          "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
-          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
-          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
           "id": "7360e8bb-b659-4eb4-99ae-9b397656f0b5",
           "listId": "30436d4f-af10-4b17-a64b-fe0633d8869f",
           "title": "[Core Go] CARD-10: Worker Pool Concorrente para Varredura e Hashing (RNF04)",
@@ -177,12 +159,31 @@
     {
       "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
       "title": "Doing",
-      "cards": []
+      "cards": [
+        {
+          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
+          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
+          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
+          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     },
     {
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
       "title": "Done",
       "cards": [
+        {
+          "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Core Go] CARD-08: Scanner Recursivo de Imagens com Filtro de Extensões (RF02.1, RF02.2)",
+          "description": "### Objetivo\nImplementar a varredura recursiva de diretórios filtrando apenas as imagens suportadas (.jpg, .jpeg, .png, .heic, .webp, .dng).\n\n### Conceitos de Go\n- Uso de `filepath.WalkDir` e interface `fs.DirEntry`\n- Pacote `strings` (`ToLower`) e `filepath.Ext`\n- Manipulação de `slices` e passagem de ponteiros/valores\n\n### Critérios de Aceitação\n- [ ] Função `ScanDirectory(root string) ([]string, error)` implementada em `internal/scanner`\n- [ ] Filtro case-insensitive para extensões especificadas no RF02.2\n- [ ] Teste unitário com diretório temporário (`t.TempDir()`)\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
         {
           "id": "f352ca55-6c85-4363-8367-45b39c7700a1",
           "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
