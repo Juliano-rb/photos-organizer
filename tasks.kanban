@@ -159,22 +159,21 @@
     {
       "id": "41f59902-4458-4a5a-83a1-fb3b787b585b",
       "title": "Doing",
-      "cards": [
-        {
-          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
-          "listId": "41f59902-4458-4a5a-83a1-fb3b787b585b",
-          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
-          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        }
-      ]
+      "cards": []
     },
     {
       "id": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
       "title": "Done",
       "cards": [
+        {
+          "id": "81e0cef6-c31f-4199-885a-ec0d7706ff31",
+          "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
+          "title": "[Core Go] CARD-09: Cálculo de Hash SHA-256 em Streaming (RF02.3)",
+          "description": "### Objetivo\nCalcular o hash SHA-256 do arquivo em streaming para identificação única determinística e deduplicação sem estourar memória RAM.\n\n### Conceitos de Go\n- Pacote `crypto/sha256` e interface `hash.Hash`\n- Streaming eficiente com `io.Copy` a partir de `*os.File`\n- Gerenciamento de recursos com `defer file.Close()`\n- Tratamento explícito de erros com `if err != nil`\n\n### Critérios de Aceitação\n- [ ] Função `CalculateSHA256(filePath string) (string, error)` em `internal/hasher`\n- [ ] Teste unitário validando hash contra valores de referência conhecidos\n",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
         {
           "id": "22e0da16-d4cc-401d-ab26-1e9f754b4da9",
           "listId": "85a3cf34-3fb0-4cfc-9d2c-e546161a172c",
